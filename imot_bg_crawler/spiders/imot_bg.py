@@ -46,7 +46,11 @@ class ImotBgSpider(scrapy.Spider):
         descr_base = response.css('#description_div').get()
         descr_base = self.get_text(descr_base).strip()
         descr_extra = response.css('#dots_less').get()
-        descr_extra = self.get_text(descr_extra).strip()
+        try:
+            descr_extra = self.get_text(descr_extra).strip()
+        except Exception as e:
+            print(e)
+            descr_extra = ''
         descr = descr_base + descr_extra
         descr.replace('Виж повече', '')
         descr.replace('Виж по-малко', '')
